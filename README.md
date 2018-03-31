@@ -2,6 +2,22 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
 
+
+
+## Architecture
+This Project is build with Angular 5 and NGRX(REDUX).  @ngrx/store to manage the state of the app;
+ @ngrx/effects to isolate side effects and handling http requests; 
+
+## Included
+ngrx/store - RxJS powered state management for Angular apps, inspired by Redux
+ngrx/effects - Side effect model for @ngrx/store
+angular/router - manage navigation
+
+
+## Usage
+`npm install` to install required node modules
+`npm start` to serve the application
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

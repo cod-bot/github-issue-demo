@@ -18,8 +18,23 @@ export class IssueService {
     this.store.dispatch(this.action.getIssues());
   }
 
+  dGetIssueContent(pId: Object) {
+    this.store.dispatch(this.action.issueContent(pId));
+  }
+
+
+  // selectors
+
   sGetIssues() {
     return this.store.select(selector.getIssueResults);
+  }
+
+  sGetAssignee() {
+    return this.store.select(selector.getAssignee);
+  }
+
+  sGetIssueContent() {
+    return this.store.select(selector.issueContent);
   }
 
 

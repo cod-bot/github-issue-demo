@@ -9,6 +9,8 @@ import { IssueEffects } from './store/issue.effects';
 import { IssueService } from './store/issue.service';
 import { IssueActions } from './store/issue.actions';
 import { HttpModule } from '@angular/http';
+import { MomentModule } from 'angular2-moment';
+import { IssueContentComponent } from './components/issue-content/issue-content.component';
 
 @NgModule({
   imports: [
@@ -16,9 +18,10 @@ import { HttpModule } from '@angular/http';
     HttpModule,
     StoreModule.forFeature('issues', IssueView),
     EffectsModule.forFeature([IssueEffects]),
+    MomentModule
   ],
   providers: [IssueService, IssueActions],
-  declarations: [IssueViewComponent, MainViewComponent],
+  declarations: [IssueViewComponent, MainViewComponent, IssueContentComponent],
   exports: [IssueViewComponent, MainViewComponent]
 })
 export class IssueContainerModule { }

@@ -15,6 +15,7 @@ import { IAction } from '../../../core-modules/app-store/interfaces/IAction';
 import { error } from '../../../core-modules/app-store/state/app-store.effects';
 import { IAppStoreState } from '../../../core-modules/app-store';
 import 'rxjs/add/operator/map';
+import { Router } from '@angular/router';
 
 
 @Injectable()
@@ -36,10 +37,28 @@ export class IssueEffects {
             );
         });
 
+        @Effect()
+        eIssueContent = this.action$
+        .ofType(IssueActions.GET_ISSUE_CONTENT)
+            .switchMap((pAction: IAction) => {
+                return this.http.get(`https://api.github.com/repos/angular/angular.js/issues/${pAction.payload.id}`)
+                .map((res: Response) =>
+                    res.json())
+                .switchMap((result: Response) => {
+                    this.router.navigate([`./issues/${pAction.payload.id}`]);
+                    return Observable.of(
+                        {type: IssueActions.CONTENT_RESULTS, payload: result},
+                    );
+                }).catch((e: Error) =>
+                    error(e)
+                );
+            });
+
     constructor(
         private action$: Actions,
         public store: Store<IAppStoreState>,
         public search: IssueActions,
+        private router: Router,
         public http: Http
     ) {
     }

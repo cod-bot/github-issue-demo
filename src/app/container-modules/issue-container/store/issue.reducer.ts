@@ -9,11 +9,15 @@ import { IAction } from '../../../core-modules/app-store/interfaces/IAction';
 // tslint:disable-next-line:no-empty-interface
 export interface IssueState {
     result: Array<Object>;
+    assignees: Array<String>;
+    issueContent: Object;
 }
 
 
 export const DEFAULT_ISSUE_STATE = {
-    result: []
+    result: [],
+    assignees: [],
+    issueContent: {}
 };
 
 
@@ -25,6 +29,10 @@ export function IssueView(state: IssueState = DEFAULT_ISSUE_STATE, action: IActi
         case IssueActions.ISSUE_RESULTS:
             return handleIssueResults(state, action);
 
+        case IssueActions.CONTENT_RESULTS:
+            return handleIssueContent(state, action);
+
+
         default:
             return state;
     }
@@ -32,11 +40,22 @@ export function IssueView(state: IssueState = DEFAULT_ISSUE_STATE, action: IActi
 // tslint:disable-next-line:no-shadowed-variable
 function handleIssueResults(state: IssueState, action: IAction): IssueState {
       const newState = _.cloneDeep(state);
-      console.log(action.payload);
+      action.payload.forEach(element => {
+        if (null !== element.assignee && undefined !== element.assignee) {
+            if (newState.assignees.indexOf(element.assignee.login) === -1) {
+                newState.assignees.push(element.assignee.login);
+             }
+        }
+      });
       newState.result = action.payload;
       return newState;
   }
 }
 
 
-/** Reducer Handlers */
+function handleIssueContent(state: IssueState, action: IAction): IssueState {
+    const newState = _.cloneDeep(state);
+    newState.issueContent = action.payload;
+    return newState;
+}
+

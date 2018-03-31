@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ROUTING } from './app.routes';
 
 
 import { AppComponent } from './app.component';
@@ -16,7 +17,8 @@ import { AppStoreModule } from './core-modules/app-store';
     BrowserModule,
     RouterModule,
     IssueContainerModule,
-    AppStoreModule
+    AppStoreModule,
+    ROUTING
   ],
   providers: [],
   bootstrap: [AppComponent]
